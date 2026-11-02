@@ -18,9 +18,9 @@
                 </c:forEach>
             </c:if>
             <c:if test="${companyUser}">
-                <a class="link-pagina" href="${pageContext.request.contextPath}${homePath}">Painel</a>
+                <a class="link-pagina" href="${pageContext.request.contextPath}${homePath}">Empresa</a>
 
-                <a class="link-pagina" href="${pageContext.request.contextPath}/area?action=list">Unidades</a>
+                <a class="link-pagina" href="${pageContext.request.contextPath}/area?action=list">Áreas</a>
                 <a class="link-pagina" href="${pageContext.request.contextPath}/usuario?action=list">Funcionários</a>
                 <a class="link-pagina" href="${pageContext.request.contextPath}/ocorrencia?action=list">Ocorrências</a>
                 <a class="link-pagina" href="${pageContext.request.contextPath}/coleta?action=list">Coletas</a>

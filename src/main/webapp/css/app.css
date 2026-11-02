@@ -1453,3 +1453,98 @@ body.painel-admin {
   border: 1px dashed var(--verde-medio);
   border-radius: 6px;
 }
+
+/* Painel inicial da empresa */
+.painel-empresa {
+  max-width: 1280px;
+  gap: 30px;
+  padding-top: 20px;
+  padding-bottom: 48px;
+}
+
+.empresa-acessos h2 {
+  margin: 0 0 16px;
+  color: var(--verde-escuro);
+  font-size: 1.45rem;
+}
+
+.painel-empresa .cards {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.painel-empresa .empresa-card {
+  position: relative;
+  min-height: 225px;
+  padding: 20px;
+  gap: 0;
+  border: 1px solid color-mix(in srgb, var(--verde-medio) 18%, var(--branco));
+  border-left: 4px solid var(--verde-principal);
+  border-radius: 14px;
+  background: var(--branco);
+  box-shadow: 0 5px 18px color-mix(in srgb, var(--verde-floresta) 7%, transparent);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.painel-empresa .empresa-card:hover,
+.painel-empresa .empresa-card:focus-visible {
+  transform: translateY(-3px);
+  border-color: var(--verde-medio);
+  box-shadow: 0 12px 26px color-mix(in srgb, var(--verde-floresta) 13%, transparent);
+}
+
+.painel-empresa .empresa-card:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--verde-principal) 38%, var(--branco));
+  outline-offset: 2px;
+}
+
+.painel-empresa .empresa-card .nome {
+  margin-bottom: 5px;
+  color: var(--verde-escuro);
+  font-size: 1.2rem;
+}
+
+.empresa-card-descricao {
+  color: var(--cinza-texto);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.empresa-card-acao {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 16px;
+  color: var(--verde-petroleo);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .painel-empresa {
+    padding-top: 20px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .painel-empresa .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (max-width: 560px) {
+  .painel-empresa .cards {
+    grid-template-columns: 1fr;
+  }
+  .painel-empresa .empresa-card {
+    min-height: 190px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .painel-empresa .empresa-card {
+    transition: none;
+  }
+}

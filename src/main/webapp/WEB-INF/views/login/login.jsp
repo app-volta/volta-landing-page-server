@@ -37,7 +37,7 @@
                 <div class="mensagem sucesso"><c:out value="${flashSuccess}"/></div>
             </c:if>
 
-            <form method="post" action="${pageContext.request.contextPath}/login">
+            <form id="form-login" method="post" action="${pageContext.request.contextPath}/login">
                 <label for="email">E-mail:</label>
                 <input type="email" id="email" name="email" placeholder="Digite seu e-mail"
                        autocomplete="username" required>
