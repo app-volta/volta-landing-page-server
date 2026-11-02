@@ -34,7 +34,8 @@ O Volta é uma aplicação Java 17 baseada em:
 - jBCrypt para hash de senha;
 - Jakarta Mail/Angus Mail para envio de e-mails;
 - dotenv-java para leitura do `.env`;
-- org.json e BrasilAPI para CEP e CNPJ;
+- org.json; BrasilAPI para consultar CNPJ e obter coordenadas por CEP; AwesomeAPI
+  para localizar endereço por CEP;
 - JUnit 5 para testes.
 
 A aplicação segue uma organização próxima de MVC:
@@ -50,7 +51,8 @@ A aplicação segue uma organização próxima de MVC:
 ## 2. Fluxo de uma requisição
 
 1. O navegador chama uma rota como `/empresa?action=list`.
-2. O filtro `NoCacheFilter` ajusta cache e codificação das respostas textuais.
+2. O filtro `NoCacheFilter` desativa o cache das respostas e define UTF-8 para
+   conteúdo textual.
 3. O controller correspondente recebe a requisição.
 4. `BaseController` verifica a sessão e monta atributos comuns:
    `systemAdmin`, `companyUser`, `cooperativeUser`, `homePath`, `canManage` e
@@ -137,7 +139,7 @@ Todos os controllers ficam em `src/main/java/br/com/volta/controller` e usam
 | `BaseController.java` | — | Classe base dos controllers. Verifica sessão, define atributos das JSPs, centraliza redirect, forward e tratamento de erro. |
 | `AdminController.java` | `/admin` | Painel exclusivo do `SYSTEM_ADMIN`. Conta registros e monta os grupos `operationSections` e `accessSections`. |
 | `AreaController.java` | `/area` | CRUD de unidades/setores. Empresa vê apenas as próprias áreas; admin global vê todas. |
-| `CadastroController.java` | `/cadastro` | Cadastro público de empresa. Valida CNPJ, CEP de São Paulo, e-mail e senha; usa `RegistrationService`; redireciona ao login. |
+| `CadastroController.java` | `/cadastro` | Cadastro público de empresa. Valida o CNPJ pela BrasilAPI, consulta o CEP e exige endereço em São Paulo, além de validar e-mail e senha; usa `RegistrationService` e redireciona ao login. |
 | `CollectionController.java` | `/coleta` | CRUD de coletas, alteração de status e data agendada. Cooperativa vê as próprias coletas; empresa vê as coletas das suas ocorrências. |
 | `CompanyController.java` | `/empresa` | CRUD de empresas. Empresa gerencia apenas o próprio cadastro; admin global gerencia todas. Valida CNPJ e CEP. |
 | `CooperativeController.java` | `/cooperativa` | CRUD de cooperativas, tipos de resíduo aceitos e coordenadas obtidas pelo CEP. Valida CNPJ e CEP de São Paulo. |
@@ -147,16 +149,17 @@ Todos os controllers ficam em `src/main/java/br/com/volta/controller` e usam
 | `LogoutController.java` | `/logout` | Invalida a sessão e redireciona para a landing page. |
 | `ResetPasswordController.java` | `/redefinir-senha` | Valida o token, aplica a política de senha e grava o novo hash BCrypt. |
 | `RoleController.java` | `/perfil` | CRUD de perfis. Exclusivo do `SYSTEM_ADMIN`; protege os perfis fixos do sistema. |
-| `UserController.java` | `/usuario` | CRUD de usuários, escopo por empresa/cooperativa, troca de perfil e proteção contra remover o último administrador. |
+| `UserController.java` | `/usuario` | CRUD de usuários: o admin global gerencia usuários de empresas e cooperativas; o administrador da empresa gerencia somente usuários da própria empresa. Protege contra remover o último administrador. |
 | `WasteTypeController.java` | `/tipo-residuo` | CRUD de tipos de resíduo, com categoria, descrição e risco padrão. |
 
 ### Detalhes importantes
 
 - `BaseController` só deixa passar sem sessão nas rotas públicas. Sem permissão,
   a resposta é `403`.
-- `CadastroController` usa `CnpjService` para confirmar existência na Receita e
-  `ZipCodeService` para validar o CEP. Se a consulta de CNPJ estiver indisponível,
-  o cadastro falha de forma segura.
+- `CadastroController` usa `CnpjService` para consultar pela BrasilAPI a existência
+  do CNPJ e `ZipCodeService` para localizar o endereço e confirmar que o CEP é de
+  São Paulo. Se a consulta de CNPJ estiver indisponível, o cadastro falha de forma
+  segura.
 - `RegistrationService` grava empresa e primeiro usuário `ADMIN` na mesma
   transação.
 - `CollectionController` usa `CollectionStatus.canTransitionTo` para impedir
@@ -184,6 +187,11 @@ modelo. Erros de SQL são convertidos em `DaoException`.
 | `RoleDAO.java` | CRUD de perfis, busca por tipo, filtros e contagem de usuários. |
 | `UserDAO.java` | CRUD de usuários, busca por e-mail, filtros, vínculo com empresa/cooperativa, troca de senha e inserção transacional. |
 | `WasteTypeDAO.java` | CRUD de tipos de resíduo, filtros, vínculo com cooperativas e contagem. |
+
+Além das tabelas principais, `CollectionDAO` grava o histórico em
+`collection_status`, e `CooperativeDAO` consulta `review` para calcular a média
+de avaliações. Essas tabelas são usadas diretamente mesmo sem terem um DAO
+próprio.
 
 ## 7. Models e enums
 
@@ -233,7 +241,7 @@ A senha é convertida em hash BCrypt antes de ser gravada.
 | `EmailService.java` | Valida a configuração SMTP e envia o link de recuperação de senha. |
 | `Env.java` | Lê o `.env` e as variáveis de ambiente, procurando o arquivo também no diretório do Tomcat. |
 | `Flash.java` | Guarda mensagens de sucesso/erro na sessão e as expõe na próxima requisição. |
-| `NoCacheFilter.java` | Evita cache de HTML/CSS/JS e define UTF-8 para respostas textuais. |
+| `NoCacheFilter.java` | Desativa cache das respostas e define UTF-8 para recursos textuais. |
 | `PasswordResetService.java` | Mantém tokens de recuperação em memória, com validade de 30 minutos, uso único e cooldown de 60 segundos. |
 | `PasswordUtil.java` | Gera e verifica hashes BCrypt; rejeita hashes legados ou malformados. |
 | `SessionUtil.java` | Centraliza o usuário logado e as verificações de perfil, empresa e permissão. |
@@ -312,7 +320,8 @@ necessários no controller.
 | `css/landing.css` | Landing page pública. |
 | `css/app.css` | Layout interno: menu lateral, CRUDs, tabelas, formulários, painel administrativo e responsividade. |
 | `css/login-cadastrar.css` | Login, cadastro, redefinição de senha e botão de mostrar/ocultar senha. |
-| `assets/css/base.css`, `assets/css/landing.css`, `assets/css/login-cadastrar.css`, `assets/css/app.css` | Cópias estáticas usadas pela landing page e pelas páginas HTML antigas. |
+| `assets/css/base.css`, `assets/css/landing.css` | Estilos carregados pela landing page (`index.html`). |
+| `assets/css/login-cadastrar.css`, `assets/css/app.css` | Cópias estáticas mantidas em `assets`; as telas JSP usam os arquivos correspondentes de `css/`. |
 
 O painel administrativo usa cards compactos em `app.css`, com os grupos
 **Operação** e **Acesso**, números em verde e legenda de cadastros.
@@ -354,7 +363,7 @@ Os testes atuais não acessam banco nem APIs externas.
 
 ## 15. Banco de dados
 
-As tabelas usadas pelo sistema são:
+As tabelas consultadas diretamente pelos DAOs são:
 
 - `company`
 - `cooperative`
@@ -364,6 +373,8 @@ As tabelas usadas pelo sistema são:
 - `area`
 - `incident`
 - `collection`
+- `collection_status` (histórico de mudanças de status)
+- `review` (avaliações usadas no cálculo da média das cooperativas)
 - `waste_type`
 
 Observações:
@@ -401,5 +412,6 @@ Observações:
 - A senha nunca é guardada em texto puro: apenas o hash BCrypt.
 - O `.env` e o marcador local de senha do admin não vão para o repositório.
 - A sessão expira em 30 minutos.
-- O acesso sem permissão retorna 403.
+- Uma requisição protegida sem sessão é redirecionada para `/login`; quando há
+  sessão, mas falta permissão para a operação, o sistema responde com 403.
 - O painel `/admin` é exclusivo do `SYSTEM_ADMIN`.
