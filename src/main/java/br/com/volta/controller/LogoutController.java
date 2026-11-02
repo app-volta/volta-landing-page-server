@@ -1,5 +1,7 @@
 package br.com.volta.controller;
 
+import br.com.volta.util.SessionUtil;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -19,7 +21,7 @@ public class LogoutController extends HttpServlet {
             throws ServletException, IOException {
 
         //o get tambem encerra a sessao para nao deixar o usuario logado
-        String target = targetAfterLogout();
+        String target = targetAfterLogout(request);
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();
@@ -33,7 +35,7 @@ public class LogoutController extends HttpServlet {
             throws ServletException, IOException {
 
         //descobre o perfil antes de invalidar a sessao
-        String target = targetAfterLogout();
+        String target = targetAfterLogout(request);
 
         //invalida a sessao atual para deslogar com seguranca
         HttpSession session = request.getSession(false);
@@ -44,8 +46,14 @@ public class LogoutController extends HttpServlet {
         response.sendRedirect(request.getContextPath() + target);
     }
 
-    //apos sair, o usuario volta para a landing page publica
-    private String targetAfterLogout() {
+    //retorna cada perfil ao acesso correspondente depois de encerrar a sessao
+    private String targetAfterLogout(HttpServletRequest request) {
+        if (SessionUtil.isSystemAdmin(request)) {
+            return "/acesso-restrito";
+        }
+        if (SessionUtil.isCompany(request) || SessionUtil.isCooperative(request)) {
+            return "/login";
+        }
         return "/";
     }
 }

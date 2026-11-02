@@ -505,12 +505,21 @@ textarea:focus {
 }
 
 .lista .mensagem,
-.lista .vazio {
+.lista .vazio,
+.lista .sem-resultado {
   grid-column: 1 / -1;
 }
 
-.vazio {
+.vazio,
+.sem-resultado {
   color: var(--cinza-texto);
+}
+
+.sem-resultado {
+  padding: 16px;
+  text-align: center;
+  background-color: var(--verde-gelo);
+  border-radius: 10px;
 }
 
 .formulario .mensagem {
@@ -1383,4 +1392,64 @@ body.painel-admin {
   .painel-admin .painel .grade {
     grid-template-columns: 1fr;
   }
+}
+
+
+/* Componentes dos painéis sincronizados com o front estático. */
+.painel-titulo{
+  margin: 28px 0 14px;
+  font-size: 1.3rem;
+  color: var(--verde-petroleo);
+}
+
+.cards{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.card{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px;
+  background-color: var(--verde-gelo);
+  border: 1px solid var(--verde-esbranquicado);
+  border-left: 5px solid var(--verde-principal);
+  border-radius: 6px;
+  text-decoration: none;
+  color: var(--verde-escuro);
+}
+
+.card:hover{
+  background-color: var(--verde-esbranquicado);
+}
+
+.card .nome{
+  font-family: 'Belanosima', sans-serif;
+  font-size: 1.1rem;
+  color: var(--verde-floresta);
+}
+
+.card .num{
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--verde-petroleo);
+}
+
+.card .num span{
+  display: block;
+  font-size: 0.8rem;
+  font-weight: normal;
+  color: var(--cinza-texto);
+}
+
+.sem-resultado{
+  margin: 24px 0;
+  padding: 24px;
+  text-align: center;
+  color: var(--cinza-texto);
+  background-color: var(--verde-gelo);
+  border: 1px dashed var(--verde-medio);
+  border-radius: 6px;
 }

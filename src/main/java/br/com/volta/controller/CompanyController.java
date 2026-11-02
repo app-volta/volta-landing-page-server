@@ -24,6 +24,7 @@ public class CompanyController extends BaseController {
     private static final String LIST_PATH = "/empresa?action=list";
     private static final String LIST_JSP = "/WEB-INF/views/empresa/lista.jsp";
     private static final String FORM_JSP = "/WEB-INF/views/empresa/formulario.jsp";
+    private static final String PANEL_JSP = "/WEB-INF/views/empresa/painel.jsp";
 
     private final CompanyDAO companyDAO = new CompanyDAO();
 
@@ -40,7 +41,13 @@ public class CompanyController extends BaseController {
 
         String action = request.getParameter("action");
         try {
-            if ("edit".equals(action)) {
+            if ("dashboard".equals(action)) {
+                if (SessionUtil.isSystemAdmin(logged)) {
+                    redirect(request, response, "/admin");
+                } else {
+                    forward(request, response, PANEL_JSP);
+                }
+            } else if ("edit".equals(action)) {
                 showEditForm(request, response, logged);
             } else if ("new".equals(action)) {
                 if (SessionUtil.isSystemAdmin(logged)) {

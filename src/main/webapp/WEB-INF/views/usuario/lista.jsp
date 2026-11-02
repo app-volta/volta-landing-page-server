@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/app.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Belanosima:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alata&family=Belanosima:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
 </head>
 <body>
@@ -26,8 +26,7 @@
 
     <form class="form-inline" method="get" action="${pageContext.request.contextPath}/usuario">
         <input type="hidden" name="action" value="list">
-        <input type="text" name="name" maxlength="150" placeholder="Nome..." value="<c:out value='${nameFilter}'/>">
-        <input type="text" name="email" maxlength="150" placeholder="Email..." value="<c:out value='${emailFilter}'/>">
+        <input type="text" name="name" maxlength="150" placeholder="Filtrar por nome..." value="<c:out value='${nameFilter}'/>">
         <select name="roleId">
             <option value="">Todos os perfis</option>
             <c:forEach var="role" items="${roles}">
@@ -56,7 +55,7 @@
         <div class="mensagem erro"><c:out value="${error}"/></div>
     </c:if>
     <c:if test="${empty users}">
-        <p class="vazio">Nenhum usuário encontrado.</p>
+        <p class="vazio sem-resultado">Nenhum usuário encontrado.</p>
     </c:if>
 
     <c:if test="${not empty users}">
@@ -65,7 +64,7 @@
                 <thead>
                 <tr>
                     <th>Nome</th>
-                    <th>Email</th>
+                    <th>E-mail</th>
                     <th>Perfil</th>
                     <th>Cargo</th>
                     <c:if test="${systemAdmin}">

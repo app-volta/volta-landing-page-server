@@ -2,7 +2,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Belanosima", sans-serif;
   font-weight: 400;
   font-style: normal;
 }
@@ -12,8 +11,17 @@ html {
 }
 
 body {
+  font-family: "Alata", sans-serif;
   color: var(--preto);
   overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Belanosima", sans-serif;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
 }
 
 

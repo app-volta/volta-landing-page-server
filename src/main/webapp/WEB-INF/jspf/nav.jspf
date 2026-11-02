@@ -12,12 +12,14 @@
 
         <div class="nav-links">
             <c:if test="${systemAdmin}">
+                <a class="link-pagina" href="${pageContext.request.contextPath}${homePath}">Painel</a>
                 <c:forEach var="section" items="${adminSections}">
                     <a class="link-pagina" href="${pageContext.request.contextPath}${section.path}"><c:out value="${section.label}"/></a>
                 </c:forEach>
             </c:if>
             <c:if test="${companyUser}">
-                <a class="link-pagina" href="${pageContext.request.contextPath}/empresa?action=list">Minha empresa</a>
+                <a class="link-pagina" href="${pageContext.request.contextPath}${homePath}">Painel</a>
+
                 <a class="link-pagina" href="${pageContext.request.contextPath}/area?action=list">Unidades</a>
                 <a class="link-pagina" href="${pageContext.request.contextPath}/usuario?action=list">Funcionários</a>
                 <a class="link-pagina" href="${pageContext.request.contextPath}/ocorrencia?action=list">Ocorrências</a>

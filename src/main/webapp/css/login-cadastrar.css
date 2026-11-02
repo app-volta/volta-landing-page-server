@@ -21,20 +21,11 @@ body {
 .lado-imagem{
   flex: 1;
   position: relative;
-  background: url("../assets/img/backgrounds/fundo_intro.jpg") center / cover no-repeat;
-}
-
-/* Película verde por cima da foto */
-.lado-imagem::after{
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-color: color-mix(in srgb, var(--verde-floresta) 75%, transparent);
+  background: url("../assets/img/backgrounds/fundo_login.jpg") center / cover no-repeat;
 }
 
 .content{
-  width: 100%;
-  max-width: 480px;
+  flex: 1;
   min-height: 100vh;
   padding: 40px 30px;
   background-color: var(--branco);
@@ -118,6 +109,51 @@ input:read-only{
  color: var(--verde-escuro);
 }
 
+input:user-invalid,
+select:user-invalid{
+ border: 2px solid var(--erro);
+ background-color: var(--branco);
+ color: var(--verde-escuro);
+}
+
+/* Celular: some a imagem, formulário ocupa tudo */
+@media (max-width: 768px) {
+  .lado-imagem { display: none; }
+  .content { max-width: none; }
+}
+
+p{
+  margin-top: 15px;
+  text-align: center;
+}
+
+a{
+  color: var(--verde-floresta);
+}
+
+a:hover{
+  color: var(--verde-escuro);
+  transition: 0.3s;
+}
+
+button {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  margin-top: 6px;
+  background-color: var(--verde-principal);
+  color: var(--branco);
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+button:hover {
+  background-color: var(--verde-floresta);
+}
+
+
 /* Campo de senha com botao para mostrar/ocultar */
 .campo-senha{
  position: relative;
@@ -182,49 +218,6 @@ input:read-only{
  display: block;
 }
 
-input:user-invalid,
-select:user-invalid{
- border: 2px solid var(--erro);
- background-color: var(--branco);
- color: var(--verde-escuro);
-}
-
-/* Celular: some a imagem, formulário ocupa tudo */
-@media (max-width: 768px) {
-  .lado-imagem { display: none; }
-  .content { max-width: none; }
-}
-
-p{
-  margin-top: 15px;
-  text-align: center;
-}
-
-a{
-  color: var(--verde-floresta);
-}
-
-a:hover{
-  color: var(--verde-escuro);
-  transition: 0.3s;
-}
-
-button {
-  display: block;
-  width: 100%;
-  padding: 14px;
-  margin-top: 6px;
-  background-color: var(--verde-principal);
-  color: var(--branco);
-  font-size: 1rem;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-button:hover {
-  background-color: var(--verde-floresta);
-}
 
 .escuro .content{
   background: linear-gradient(180deg, var(--verde-floresta), var(--verde-escuro));
