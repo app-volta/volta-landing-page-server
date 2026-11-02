@@ -1,0 +1,10 @@
+<%@ page pageEncoding="UTF-8" %>
+<c:if test="${flashError != null}">
+    <div class="container"><div class="mensagem erro"><c:out value="${flashError}"/></div></div>
+</c:if>
+<c:if test="${flashWarning != null}">
+    <div class="container"><div class="mensagem erro"><c:out value="${flashWarning}"/></div></div>
+</c:if>
+<c:if test="${flashSuccess != null}">
+    <div class="container"><div class="mensagem sucesso"><c:out value="${flashSuccess}"/></div></div>
+</c:if>
