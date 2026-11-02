@@ -1,0 +1,380 @@
+html {
+  scroll-behavior: smooth;
+  background-color: var(--verde-esbranquicado);
+}
+
+
+body {
+  color: var(--preto);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+/*FORMS*/
+
+/* Layout dividido: imagem à esquerda, formulário à direita */
+#container{
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+}
+
+.lado-imagem{
+  flex: 1;
+  position: relative;
+  background: url("../assets/img/backgrounds/fundo_intro.jpg") center / cover no-repeat;
+}
+
+/* Película verde por cima da foto */
+.lado-imagem::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: color-mix(in srgb, var(--verde-floresta) 75%, transparent);
+}
+
+.content{
+  width: 100%;
+  max-width: 480px;
+  min-height: 100vh;
+  padding: 40px 30px;
+  background-color: var(--branco);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+}
+
+#Logo-VOLTA{
+  width: 260px;
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 30px;
+}
+
+h1 {
+  font-size: 1.3rem;
+  margin-bottom: 30px;
+}
+
+h2 {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+form {
+  width: 100%;
+  max-width: 340px;
+}
+
+/* Labels escondidas visualmente, mas lidas por leitores de tela */
+label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+input,
+select{
+ width: 100%;
+ margin-bottom: 12px;
+ padding: 12px 14px;
+ border-radius: 10px;
+ font-family: inherit;
+ font-size: 1rem;
+ border: 2px solid var(--verde-claro);
+ background-color: var(--branco);
+ color: var(--verde-escuro);
+}
+
+input:hover,
+select:hover{
+ border: 2px solid var(--verde-medio);
+ background-color: var(--branco);
+ color: var(--verde-escuro);
+}
+
+input:focus,
+select:focus{
+ border: 2px solid var(--verde-principal);
+ background-color: var(--branco);
+ color: var(--verde-escuro);
+ box-shadow: 0 0 0 3px var(--verde-claro);
+}
+
+input:disabled{
+ border: 2px solid var(--verde-claro);
+ background-color: var(--verde-esbranquicado);
+ color: var(--verde-floresta);
+ cursor: not-allowed;
+}
+
+input:read-only{
+ border: 2px solid var(--verde-claro);
+ background-color: var(--branco);
+ color: var(--verde-escuro);
+}
+
+/* Campo de senha com botao para mostrar/ocultar */
+.campo-senha{
+ position: relative;
+ width: 100%;
+ margin-bottom: 12px;
+}
+
+.campo-senha input{
+ margin-bottom: 0;
+ padding-right: 48px;
+}
+
+.btn-olho{
+ position: absolute;
+ top: 50%;
+ right: 10px;
+ transform: translateY(-50%);
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ width: 34px;
+ height: 34px;
+ padding: 0;
+ margin: 0;
+ border: 0;
+ border-radius: 50%;
+ background: transparent;
+ color: var(--verde-floresta);
+ cursor: pointer;
+}
+
+.btn-olho[hidden]{
+ display: none;
+}
+
+.btn-olho:hover,
+.btn-olho:focus-visible{
+ background-color: var(--verde-esbranquicado);
+ color: var(--verde-escuro);
+}
+
+.btn-olho:focus-visible{
+ outline: 2px solid var(--verde-principal);
+ outline-offset: 1px;
+}
+
+.btn-olho svg{
+ width: 20px;
+ height: 20px;
+ pointer-events: none;
+}
+
+.btn-olho .icone-olho-fechado{
+ display: none;
+}
+
+.btn-olho.is-visible .icone-olho{
+ display: none;
+}
+
+.btn-olho.is-visible .icone-olho-fechado{
+ display: block;
+}
+
+input:user-invalid,
+select:user-invalid{
+ border: 2px solid var(--erro);
+ background-color: var(--branco);
+ color: var(--verde-escuro);
+}
+
+/* Celular: some a imagem, formulário ocupa tudo */
+@media (max-width: 768px) {
+  .lado-imagem { display: none; }
+  .content { max-width: none; }
+}
+
+p{
+  margin-top: 15px;
+  text-align: center;
+}
+
+a{
+  color: var(--verde-floresta);
+}
+
+a:hover{
+  color: var(--verde-escuro);
+  transition: 0.3s;
+}
+
+button {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  margin-top: 6px;
+  background-color: var(--verde-principal);
+  color: var(--branco);
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+button:hover {
+  background-color: var(--verde-floresta);
+}
+
+.escuro .content{
+  background: linear-gradient(180deg, var(--verde-floresta), var(--verde-escuro));
+  color: var(--branco);
+}
+
+.escuro a{
+  color: var(--verde-suave);
+}
+
+.escuro a:hover{
+  color: var(--branco);
+}
+
+.escuro button:hover{
+  background-color: var(--verde-petroleo);
+}
+
+/* Mensagens de feedback */
+.mensagem {
+  width: 100%;
+  max-width: 340px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+}
+
+.mensagem.sucesso {
+  background-color: var(--verde-suave);
+  color: var(--verde-floresta);
+}
+
+.mensagem.erro {
+  background-color: color-mix(in srgb, var(--erro) 15%, var(--branco));
+  color: var(--erro-escuro);
+}
+
+.subtitulo {
+  font-size: 0.95rem;
+  color: var(--cinza-texto);
+}
+
+/* Link para o cadastro publico de empresas */
+.link-cadastro {
+  margin-top: 22px;
+  color: var(--cinza-texto);
+}
+
+.link-cadastro a {
+  font-weight: 600;
+}
+
+/* Botao de recuperacao de senha na tela de login */
+.btn-link-senha {
+  display: inline-block;
+  width: auto;
+  padding: 0;
+  margin-top: 10px;
+  background: none;
+  color: var(--verde-floresta);
+  font-size: 0.95rem;
+  text-decoration: underline;
+}
+
+.btn-link-senha:hover {
+  background: none;
+  color: var(--verde-escuro);
+}
+
+/* Modal de recuperacao de senha */
+body.modal-aberto {
+  overflow: hidden;
+}
+
+.modal-recuperacao {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-recuperacao[hidden] {
+  display: none;
+}
+
+.modal-recuperacao__overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.55);
+}
+
+.modal-recuperacao__caixa {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  padding: 30px 24px 22px;
+  border-radius: 16px;
+  background-color: var(--branco);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.modal-recuperacao__caixa h2 {
+  margin-bottom: 10px;
+  color: var(--verde-escuro);
+}
+
+.modal-recuperacao__caixa .subtitulo {
+  margin: 0 0 18px;
+}
+
+.modal-recuperacao__caixa form {
+  max-width: none;
+}
+
+.modal-recuperacao__fechar {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  margin: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--verde-floresta);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.modal-recuperacao__fechar:hover {
+  background-color: var(--verde-esbranquicado);
+  color: var(--verde-escuro);
+}
+
+.modal-recuperacao__caixa .mensagem {
+  max-width: none;
+  margin: 14px 0 0;
+  text-align: left;
+}
+
+.modal-recuperacao__link-dev {
+  display: inline-block;
+  margin-top: 8px;
+  word-break: break-all;
+}
