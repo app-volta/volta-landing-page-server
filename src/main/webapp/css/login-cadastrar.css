@@ -19,28 +19,29 @@ body {
 }
 
 .lado-imagem{
-  flex: 1;
+  flex: 1.05;
   position: relative;
   background: url("../assets/img/backgrounds/fundo_login.jpg") center / cover no-repeat;
 }
 
 .content{
-  flex: 1;
+  flex: 0.95;
   min-height: 100vh;
-  padding: 40px 30px;
+  padding: 32px clamp(28px, 4vw, 60px);
   background-color: var(--branco);
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   text-align: center;
 }
 
 #Logo-VOLTA{
-  width: 260px;
+  width: 280px;
   max-width: 100%;
   height: auto;
-  margin-bottom: 30px;
+  margin-bottom: 18px;
+  transform: translateY(-12px);
 }
 
 h1 {
@@ -55,7 +56,7 @@ h2 {
 
 form {
   width: 100%;
-  max-width: 340px;
+  max-width: 440px;
 }
 
 /* Labels escondidas visualmente, mas lidas por leitores de tela */

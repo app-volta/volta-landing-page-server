@@ -25,7 +25,7 @@ import java.util.logging.Level;
 public class CadastroController extends BaseController {
 
     private static final String FORM_JSP = "/WEB-INF/views/cadastro/cadastro.jsp";
-    private static final String LOGIN_PATH = "/login";
+    private static final String LOGIN_PATH = "/login#form-login";
     private static final String PASSWORD_ERROR =
             "A senha precisa ter no mínimo 8 caracteres, uma letra maiúscula e um caractere especial (., @, #, etc).";
 
