@@ -1,0 +1,155 @@
+html {
+  scroll-behavior: smooth;
+  background-color: var(--verde-esbranquicado);
+}
+
+
+body {
+  color: var(--preto);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+/*FORMS*/
+
+/* Layout dividido: imagem à esquerda, formulário à direita */
+#container{
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+}
+
+.lado-imagem{
+  flex: 1;
+  position: relative;
+  background: url("../img/backgrounds/fundo_login.jpg") center / cover no-repeat;
+}
+
+.content{
+  width: 100%;
+  max-width: 480px;
+  min-height: 100vh;
+  padding: 40px 30px;
+  background-color: var(--branco);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+}
+
+#Logo-VOLTA{
+  width: 260px;
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 30px;
+}
+
+h1 {
+  font-size: 1.3rem;
+  margin-bottom: 30px;
+}
+
+h2 {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+form {
+  width: 100%;
+  max-width: 340px;
+}
+
+/* Labels escondidas visualmente, mas lidas por leitores de tela */
+label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+input,
+select{
+ width: 100%;
+ margin-bottom: 12px;
+ padding: 12px 14px;
+ border-radius: 10px;
+ font-family: inherit;
+ font-size: 1rem;
+ border: 2px solid var(--verde-claro);
+ background-color: var(--branco);
+ color: var(--verde-escuro);
+}
+
+input:hover,
+select:hover{
+ border: 2px solid var(--verde-medio);
+ background-color: var(--branco);
+ color: var(--verde-escuro);
+}
+
+input:focus,
+select:focus{
+ border: 2px solid var(--verde-principal);
+ background-color: var(--branco);
+ color: var(--verde-escuro);
+ box-shadow: 0 0 0 3px var(--verde-claro);
+}
+
+input:disabled{
+ border: 2px solid var(--verde-claro);
+ background-color: var(--verde-esbranquicado);
+ color: var(--verde-floresta);
+ cursor: not-allowed;
+}
+
+input:read-only{
+ border: 2px solid var(--verde-claro);
+ background-color: var(--branco);
+ color: var(--verde-escuro);
+}
+
+input:user-invalid,
+select:user-invalid{
+ border: 2px solid var(--erro);
+ background-color: var(--branco);
+ color: var(--verde-escuro);
+}
+
+/* Celular: some a imagem, formulário ocupa tudo */
+@media (max-width: 768px) {
+  .lado-imagem { display: none; }
+  .content { max-width: none; }
+}
+
+p{
+  margin-top: 15px;
+  text-align: center;
+}
+
+a{
+  color: var(--verde-floresta);
+}
+
+a:hover{
+  color: var(--verde-escuro);
+  transition: 0.3s;
+}
+
+button {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  margin-top: 6px;
+  background-color: var(--verde-principal);
+  color: var(--branco);
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+button:hover {
+  background-color: var(--verde-floresta);
+}
