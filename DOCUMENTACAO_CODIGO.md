@@ -1,4 +1,4 @@
-# Documentação do código — Volta Back-end
+# Documentação do código — VOLTA Back-end
 
 Este documento explica, de forma resumida, a responsabilidade dos principais
 arquivos do projeto. Ele complementa o [`README.md`](README.md), que concentra
@@ -26,7 +26,7 @@ instalação, configuração e regras de uso.
 
 ## 1. Visão geral
 
-O Volta é uma aplicação Java 17 baseada em:
+A VOLTA é uma aplicação Java 17 baseada em:
 
 - Jakarta Servlet 6 e JSP/JSTL;
 - PostgreSQL com JDBC;
@@ -330,7 +330,7 @@ O painel administrativo usa cards compactos em `app.css`, com os grupos
 
 | Arquivo | Função |
 |---|---|
-| `index.html` | Landing page pública com apresentação do Volta. |
+| `index.html` | Landing page pública com apresentação da VOLTA. |
 | `login.html`, `login-crud.html` | Redirecionam para `/login`. |
 | `area/formulario.html`, `area/lista.html` | Redirecionam para `/area?action=...`. |
 | `coleta/*.html` | Redirecionam para `/coleta?action=...`. |

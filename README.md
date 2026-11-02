@@ -1,4 +1,4 @@
-# Volta — Back-end
+# VOLTA — Back-end
 
 Sistema web de gestão de resíduos, ocorrências e coletas.
 O sistema organiza o fluxo **EMPRESA → VOLTA → COOPERATIVA**. A empresa pode se
@@ -320,7 +320,7 @@ O Gmail não aceita a senha normal da conta no SMTP. É obrigatório usar uma
 4. Reinicie o Tomcat.
 
 O projeto já vem com `SMTP_HOST=smtp.gmail.com`, `SMTP_PORT=587`,
-`SMTP_USER` e `SMTP_FROM` apontando para a conta Volta. Falta apenas preencher
+`SMTP_USER` e `SMTP_FROM` apontando para a conta VOLTA. Falta apenas preencher
 `SMTP_PASSWORD` com a senha de app.
 
 ## Equipe
