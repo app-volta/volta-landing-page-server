@@ -1,0 +1,16 @@
+#build do Maven
+target/
+
+#arquivos de configuração do IntelliJ
+.idea/
+*.iml
+
+#configuração do Smart Tomcat (gerada localmente)
+.smarttomcat/
+
+#credenciais do banco
+db.properties
+.env
+
+#marcador local do reset unico da senha do admin
+.volta-admin-password-reset

@@ -1,0 +1,42 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Belanosima", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--preto);
+  overflow-x: hidden;
+}
+
+
+/* ===========================
+   Cores
+=========================== */
+
+:root {
+  --verde-medio: #3b8952;
+  --verde-floresta: #0b4828;
+  --verde-petroleo: #0f684b;
+  --verde-gelo: #f5fcf4;
+  --verde-esbranquicado: #d8ebe0;
+  --verde-principal: #1ba463;
+  --verde-escuro: #063300;
+  --verde-destaque: #5da753;
+  --erro: #e8556c;
+  --erro-escuro: color-mix(in srgb, var(--erro) 60%, var(--preto));
+
+  --branco: #ffffff;
+  --preto: #000000;
+  --cinza-texto: #4d5f55;
+
+  --verde-claro: color-mix(in srgb, var(--verde-medio) 30%, var(--branco));
+  --verde-suave: color-mix(in srgb, var(--verde-medio) 15%, var(--branco));
+}

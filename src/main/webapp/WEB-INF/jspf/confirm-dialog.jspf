@@ -1,0 +1,64 @@
+<%@ page pageEncoding="UTF-8" %>
+<dialog id="confirm-dialog" class="confirm-dialog" aria-labelledby="confirm-dialog-title">
+    <form method="dialog">
+        <h2 id="confirm-dialog-title">Confirmar exclusão</h2>
+        <p id="confirm-dialog-message">Tem certeza que deseja excluir este registro?</p>
+        <div class="confirm-dialog-actions">
+            <button type="submit" value="cancel" class="btn btn-secundario">Cancelar</button>
+            <button type="submit" value="confirm" class="btn btn-perigo">Excluir</button>
+        </div>
+    </form>
+</dialog>
+<script>
+    //confirmacao reutilizavel para formularios marcados com data-confirm
+    (function () {
+        'use strict';
+
+        var dialog = document.getElementById('confirm-dialog');
+        if (!dialog) {
+            return;
+        }
+
+        var message = document.getElementById('confirm-dialog-message');
+        var pendingForm = null;
+
+        document.addEventListener('submit', function (event) {
+            var form = event.target;
+            if (!(form instanceof HTMLFormElement) || !form.hasAttribute('data-confirm')) {
+                return;
+            }
+            if (form.dataset.confirmed === 'true') {
+                delete form.dataset.confirmed;
+                return;
+            }
+
+            event.preventDefault();
+            pendingForm = form;
+
+            if (message) {
+                message.textContent = form.getAttribute('data-confirm');
+            }
+
+            if (typeof dialog.showModal === 'function') {
+                dialog.returnValue = '';
+                dialog.showModal();
+            } else {
+                //navegadores antigos sem suporte a dialog continuam funcionando
+                var accepted = window.confirm(form.getAttribute('data-confirm'));
+                pendingForm = null;
+                if (accepted) {
+                    form.submit();
+                }
+            }
+        });
+
+        dialog.addEventListener('close', function () {
+            var form = pendingForm;
+            pendingForm = null;
+            if (form && dialog.returnValue === 'confirm') {
+                form.dataset.confirmed = 'true';
+                form.requestSubmit();
+            }
+        });
+    })();
+</script>
