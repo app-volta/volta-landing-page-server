@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/app.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Belanosima:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alata&family=Belanosima:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
 </head>
 <body>
@@ -26,22 +26,12 @@
         <a class="btn" href="${pageContext.request.contextPath}/empresa?action=new">+ Nova empresa</a>
     </c:if>
 
-    <c:if test="${systemAdmin}">
-        <form class="form-inline" method="get" action="${pageContext.request.contextPath}/empresa">
-            <input type="hidden" name="action" value="list">
-            <input type="text" name="name" maxlength="150" placeholder="Nome..." value="<c:out value='${nameFilter}'/>">
-            <input type="text" name="cnpj" maxlength="18" placeholder="CNPJ..." value="<c:out value='${cnpjFilter}'/>">
-            <input type="text" name="address" maxlength="255" placeholder="Endereço..." value="<c:out value='${addressFilter}'/>">
-            <button type="submit">Filtrar</button>
-            <a class="btn btn-secundario" href="${pageContext.request.contextPath}/empresa?action=list">Limpar</a>
-        </form>
-    </c:if>
 
     <c:if test="${error != null}">
         <div class="mensagem erro"><c:out value="${error}"/></div>
     </c:if>
     <c:if test="${empty companies}">
-        <p class="vazio">Nenhuma empresa encontrada.</p>
+        <p class="vazio sem-resultado">Nenhuma empresa encontrada.</p>
     </c:if>
 
     <c:if test="${not empty companies}">

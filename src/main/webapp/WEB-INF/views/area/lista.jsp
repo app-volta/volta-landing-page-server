@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/app.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Belanosima:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alata&family=Belanosima:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
 </head>
 <body>
@@ -42,8 +42,6 @@
                 </c:forEach>
             </select>
         </c:if>
-        <input type="text" name="sectorName" maxlength="150" placeholder="Setor..." value="<c:out value='${sectorFilter}'/>">
-        <input type="text" name="locationDescription" maxlength="255" placeholder="Descrição do local..." value="<c:out value='${locationFilter}'/>">
         <button type="submit">Filtrar</button>
         <a class="btn btn-secundario" href="${pageContext.request.contextPath}/area?action=list">Limpar</a>
     </form>
@@ -52,7 +50,7 @@
         <div class="mensagem erro"><c:out value="${error}"/></div>
     </c:if>
     <c:if test="${empty areas}">
-        <p class="vazio">Nenhuma área encontrada.</p>
+        <p class="vazio sem-resultado">Nenhuma área encontrada.</p>
     </c:if>
 
     <c:if test="${not empty areas}">

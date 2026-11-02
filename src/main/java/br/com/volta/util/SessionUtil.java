@@ -167,7 +167,7 @@ public final class SessionUtil {
             return "/coleta?action=list";
         }
         if (isCompany(user)) {
-            return "/empresa?action=list";
+            return "/empresa?action=dashboard";
         }
         return "/login";
     }

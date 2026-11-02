@@ -11,21 +11,21 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/app.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Belanosima:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alata&family=Belanosima:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="painel-admin">
+<body>
 <%@ include file="/WEB-INF/jspf/nav.jspf" %>
 
-<main class="painel">
+<main class="container painel-estatico">
     <%@ include file="/WEB-INF/jspf/flash.jspf" %>
 
     <c:if test="${error != null}">
         <div class="mensagem erro"><c:out value="${error}"/></div>
     </c:if>
 
-    <section class="painel-secao">
-        <h2 class="painel-titulo"><span>Operação</span></h2>
-        <div class="grade">
+    <section>
+        <h1 class="painel-titulo"><span>Operação</span></h1>
+        <div class="cards">
             <c:forEach var="section" items="${operationSections}">
                 <a class="card" href="${pageContext.request.contextPath}${section.path}">
                     <span class="nome"><c:out value="${section.label}"/></span>
@@ -35,9 +35,9 @@
         </div>
     </section>
 
-    <section class="painel-secao">
-        <h2 class="painel-titulo"><span>Acesso</span></h2>
-        <div class="grade">
+    <section>
+        <h1 class="painel-titulo"><span>Acesso</span></h1>
+        <div class="cards">
             <c:forEach var="section" items="${accessSections}">
                 <a class="card" href="${pageContext.request.contextPath}${section.path}">
                     <span class="nome"><c:out value="${section.label}"/></span>

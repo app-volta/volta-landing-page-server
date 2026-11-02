@@ -135,13 +135,12 @@ p {
 }
 
 #link-login {
+  margin-left: auto;
   padding: 10px 16px;
   color: var(--branco);
   background-color: var(--verde-petroleo);
   border-radius: 3px;
   text-decoration: none;
-  white-space: nowrap;
-  transition: 0.3s;
 
 }
 
@@ -150,21 +149,13 @@ p {
   background-color: var(--verde-escuro);
 }
 
-.nav-actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
 #link-cadastro {
-  padding: 10px 16px;
+  margin-left: 10px;
+  padding: 8px 16px;
   color: var(--verde-petroleo);
-  background-color: transparent;
-  border: 1px solid var(--verde-petroleo);
+  border: 2px solid var(--verde-petroleo);
   border-radius: 3px;
   text-decoration: none;
-  white-space: nowrap;
-  transition: 0.3s;
 }
 
 #link-cadastro:hover {
@@ -208,25 +199,17 @@ p {
     margin-right: auto;
   }
 
-  .nav-actions {
+  #link-login,
+  #link-cadastro {
     order: 5;
     display: none;
-    width: 100%;
-    justify-content: center;
+    white-space: nowrap;
     margin: 0 auto 15px;
   }
 
-  #link-login {
-    margin: 0;
-    white-space: nowrap;
-  }
-
-  #link-cadastro {
-    white-space: nowrap;
-  }
-
-  #menu-toggle:checked ~ .nav-actions {
-    display: flex;
+  #menu-toggle:checked ~ #link-login,
+  #menu-toggle:checked ~ #link-cadastro {
+    display: block;
   }
 
   .menu .nav-logo label {
@@ -847,71 +830,6 @@ p {
 
   .cartao-coop {
     min-height: 0;
-  }
-}
-
-/* ===========================
-   Tópicos
-=========================== */
-
-.texto {
-  width: 100%;
-  max-width: 1100px;
-  margin: 0 auto;
-
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
-}
-
-@media screen and (max-width: 900px) {
-  .texto {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.topico-cooperativa {
-  min-height: 190px;
-  padding: 28px 24px;
-
-  background-color: var(--branco);
-  border: 1px solid var(--verde-claro);
-  border-radius: 18px;
-  box-shadow: 0 8px 24px
-    color-mix(in srgb, var(--verde-floresta) 8%, transparent);
-  transition: 0.3s;
-}
-
-.topico-cooperativa:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 15px 32px
-    color-mix(in srgb, var(--verde-floresta) 15%, transparent);
-  background-color: var(--verde-principal);
-  border-color: var(--verde-principal);
-}
-
-.topico-cooperativa h3 {
-  margin-bottom: 12px;
-  color: var(--verde-floresta);
-  font-size: 1.3rem;
-  text-align: left;
-}
-
-.topico-cooperativa p {
-  color: var(--verde-medio);
-  font-size: 1rem;
-  line-height: 1.65;
-  text-align: left;
-}
-
-.topico-cooperativa:hover h3,
-.topico-cooperativa:hover p {
-  color: var(--branco);
-}
-
-@media screen and (max-width: 1142px) {
-  .topico-cooperativa h3 {
-    font-size: 1.25rem;
   }
 }
 

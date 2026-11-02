@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/app.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Belanosima:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alata&family=Belanosima:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
 </head>
 <body>
@@ -42,7 +42,7 @@
         <div class="mensagem erro"><c:out value="${error}"/></div>
     </c:if>
     <c:if test="${empty wasteTypes}">
-        <p class="vazio">Nenhum tipo de resíduo encontrado.</p>
+        <p class="vazio sem-resultado">Nenhum tipo de resíduo encontrado.</p>
     </c:if>
 
     <c:if test="${not empty wasteTypes}">

@@ -12,7 +12,7 @@ Projeto do Instituto J&F (Germinare Tech).
 
 - **Back-end:** [`app-volta/volta-landing-page-server`](https://github.com/app-volta/volta-landing-page-server)
   - Branch de desenvolvimento: `back-end`
-- **Landing page / front-end público:** [`app-volta/volta-landing-page`](https://github.com/app-volta/volta-landing-page)
+- **Landing page / front-end público:** [`app-volta/volta-landing-page-static`](https://github.com/app-volta/volta-landing-page-static)
 
 ## Tecnologias
 
@@ -54,7 +54,7 @@ src/main/webapp/
 ```
 
 A árvore pública de `src/main/webapp` foi sincronizada a partir do repositório
-[`app-volta/volta-landing-page`](https://github.com/app-volta/volta-landing-page).
+[`app-volta/volta-landing-page-static`](https://github.com/app-volta/volta-landing-page-static).
 O back-end fica no repositório
 [`app-volta/volta-landing-page-server`](https://github.com/app-volta/volta-landing-page-server),
 na branch `back-end`. O `WEB-INF` contém apenas os recursos internos do back-end
@@ -178,7 +178,7 @@ Controllers disponíveis: `/login`, `/acesso-restrito`, `/logout`, `/cadastro`, 
 
 ### Acesso e perfis
 
-- `/` serve `index.html`, o front-end público copiado do repositório `volta-landing-page`.
+- `/` serve `index.html`, o front-end público copiado do repositório `volta-landing-page-static`.
 - `/cadastro` é público: cria a empresa e o primeiro usuário `ADMIN` na mesma
   transação. Depois do cadastro, o usuário é enviado para `/login` com uma mensagem
   de sucesso.
@@ -191,7 +191,7 @@ Controllers disponíveis: `/login`, `/acesso-restrito`, `/logout`, `/cadastro`, 
 - `/login` autentica administradores, empresas e cooperativas e redireciona cada
   perfil para sua área inicial:
   - `SYSTEM_ADMIN` → `/admin`, com acesso a todas as empresas e cooperativas;
-  - `ADMIN` de empresa → `/empresa?action=list`, restrito à própria empresa;
+  - `ADMIN` de empresa → `/empresa?action=dashboard`, restrito à própria empresa;
   - `COOPERATIVE` → `/coleta?action=list`, restrito às próprias coletas.
 - `/acesso-restrito` tem uma tela separada, sem cadastro de empresa, e aceita
   somente o perfil `SYSTEM_ADMIN` para abrir o painel administrativo.
@@ -207,11 +207,11 @@ Controllers disponíveis: `/login`, `/acesso-restrito`, `/logout`, `/cadastro`, 
   conversas e usuários ligados a ela). O login da conta administrativa é protegido:
   a empresa vinculada ao administrador não pode ser excluída pelo painel.
 - O logo no topo leva para a página inicial do perfil; o botão **Sair** encerra a
-  sessão e volta para a landing page (`/`).
+  sessão e retorna ao login correspondente ao perfil.
 
 ### Área da empresa
 
-Depois do login, o menu da empresa exibe **Minha empresa**, **Unidades**,
+Depois do login, a empresa abre `/empresa?action=dashboard` com atalhos para os CRUDs. O menu exibe **Painel**, **Minha empresa**, **Unidades**,
 **Funcionários**, **Ocorrências** e **Coletas**:
 
 | Tela | Rota | O que a empresa gerencia |

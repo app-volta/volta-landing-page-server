@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/app.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Belanosima:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alata&family=Belanosima:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
 </head>
 <body>
@@ -32,124 +32,24 @@
         <a class="btn" href="${novaOcorrenciaUrl}">+ Nova ocorrência</a>
     </c:if>
 
-    <form class="filtros-painel" method="get" action="${pageContext.request.contextPath}/ocorrencia"
-          aria-label="Filtros de ocorrências">
+    <form class="form-inline" method="get" action="${pageContext.request.contextPath}/ocorrencia">
         <input type="hidden" name="action" value="list">
-
-        <div class="filtros-cabecalho">
-            <div class="filtros-titulo">
-                <span class="filtros-icone" aria-hidden="true">
-                    <span class="material-symbols-outlined">filter_alt</span>
-                </span>
-                <div>
-                    <h2>Filtrar ocorrências</h2>
-                    <p>Combine os critérios para encontrar rapidamente o que precisa.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="filtros-grid">
-            <c:if test="${systemAdmin}">
-                <div class="filtro-campo">
-                    <label for="ocorrencia-empresa">Empresa</label>
-                    <select id="ocorrencia-empresa" name="companyId">
-                        <option value="">Todas as empresas</option>
-                        <c:forEach var="company" items="${companies}">
-                            <option value="${company.id}" ${selectedCompanyId == company.id ? 'selected' : ''}><c:out value="${company.name}"/></option>
-                        </c:forEach>
-                    </select>
-                </div>
-            </c:if>
-
-            <div class="filtro-campo">
-                <label for="ocorrencia-area">Área</label>
-                <select id="ocorrencia-area" name="areaId">
-                    <option value="">Todas as áreas</option>
-                    <c:forEach var="area" items="${areas}">
-                        <option value="${area.id}" ${selectedAreaId == area.id ? 'selected' : ''}><c:out value="${area.sectorName}"/></option>
-                    </c:forEach>
-                </select>
-            </div>
-
-            <div class="filtro-campo">
-                <label for="ocorrencia-responsavel">Responsável</label>
-                <select id="ocorrencia-responsavel" name="userId">
-                    <option value="">Todos os responsáveis</option>
-                    <c:forEach var="user" items="${users}">
-                        <option value="${user.id}" ${selectedUserId == user.id ? 'selected' : ''}><c:out value="${user.name}"/></option>
-                    </c:forEach>
-                </select>
-            </div>
-
-            <div class="filtro-campo">
-                <label for="ocorrencia-residuo">Tipo de resíduo</label>
-                <select id="ocorrencia-residuo" name="wasteTypeId">
-                    <option value="">Todos os resíduos</option>
-                    <c:forEach var="wasteType" items="${wasteTypes}">
-                        <option value="${wasteType.id}" ${selectedWasteTypeId == wasteType.id ? 'selected' : ''}><c:out value="${wasteType.category}"/></option>
-                    </c:forEach>
-                </select>
-            </div>
-
-            <div class="filtro-campo">
-                <label for="ocorrencia-prioridade">Prioridade</label>
-                <select id="ocorrencia-prioridade" name="priority">
-                    <option value="">Todas as prioridades</option>
-                    <c:forEach var="priority" items="${priorities}">
-                        <option value="${priority}" ${selectedPriority == priority ? 'selected' : ''}><c:out value="${priority}"/></option>
-                    </c:forEach>
-                </select>
-            </div>
-
-            <div class="filtro-campo">
-                <label for="ocorrencia-status">Status</label>
-                <select id="ocorrencia-status" name="status">
-                    <option value="">Todos os status</option>
-                    <c:forEach var="status" items="${statuses}">
-                        <option value="${status}" ${selectedStatus == status ? 'selected' : ''}><c:out value="${status}"/></option>
-                    </c:forEach>
-                </select>
-            </div>
-
-            <div class="filtro-campo">
-                <label for="ocorrencia-contaminacao">Contaminação</label>
-                <select id="ocorrencia-contaminacao" name="contaminationLevel">
-                    <option value="">Toda contaminação</option>
-                    <c:forEach var="level" items="${contaminationLevels}">
-                        <option value="${level}" ${selectedContamination == level ? 'selected' : ''}><c:out value="${level}"/></option>
-                    </c:forEach>
-                </select>
-            </div>
-
-            <div class="filtro-campo">
-                <label for="ocorrencia-setor">Setor</label>
-                <input type="text" id="ocorrencia-setor" name="sectorName" maxlength="150"
-                       placeholder="Buscar por setor..." value="<c:out value='${sectorName}'/>">
-            </div>
-
-            <div class="filtro-campo">
-                <label for="ocorrencia-data-inicio">Registrada de</label>
-                <input type="date" id="ocorrencia-data-inicio" name="dateFrom"
-                       value="<c:out value='${dateFrom}'/>">
-            </div>
-
-            <div class="filtro-campo">
-                <label for="ocorrencia-data-fim">Registrada até</label>
-                <input type="date" id="ocorrencia-data-fim" name="dateTo"
-                       value="<c:out value='${dateTo}'/>">
-            </div>
-        </div>
-
-        <div class="filtros-acoes">
-            <a class="filtros-limpar" href="${pageContext.request.contextPath}/ocorrencia?action=list">
-                <span class="material-symbols-outlined" aria-hidden="true">restart_alt</span>
-                Limpar filtros
-            </a>
-            <button type="submit" class="filtros-aplicar">
-                <span class="material-symbols-outlined" aria-hidden="true">search</span>
-                Aplicar filtros
-            </button>
-        </div>
+        <c:if test="${systemAdmin}">
+            <select name="companyId">
+                <option value="">Todas as empresas</option>
+                <c:forEach var="company" items="${companies}">
+                    <option value="${company.id}" ${selectedCompanyId == company.id ? 'selected' : ''}><c:out value="${company.name}"/></option>
+                </c:forEach>
+            </select>
+        </c:if>
+        <input type="text" name="sectorName" placeholder="Filtrar por setor..." value="<c:out value='${sectorName}'/>">
+        <select name="status">
+            <option value="">Todos os status</option>
+            <c:forEach var="status" items="${statuses}">
+                <option value="${status}" ${selectedStatus == status ? 'selected' : ''}><c:out value="${status}"/></option>
+            </c:forEach>
+        </select>
+        <button type="submit">Filtrar</button>
     </form>
 
     <c:if test="${error != null}">
@@ -157,7 +57,7 @@
     </c:if>
 
     <c:if test="${empty incidents}">
-        <p class="vazio">Nenhuma ocorrência encontrada.</p>
+        <p class="vazio sem-resultado">Nenhuma ocorrência encontrada.</p>
     </c:if>
 
     <c:if test="${not empty incidents}">
