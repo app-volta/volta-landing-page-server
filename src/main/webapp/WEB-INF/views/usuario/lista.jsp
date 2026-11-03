@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usuários - Volta</title>
+    <title><c:choose><c:when test="${companyUser}">Funcionários</c:when><c:otherwise>Usuários</c:otherwise></c:choose> - VOLTA</title>
     <link rel="icon" href="${pageContext.request.contextPath}/assets/img/content/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/app.css">
@@ -19,10 +19,10 @@
 <%@ include file="/WEB-INF/jspf/flash.jspf" %>
 
 <main class="container lista">
-    <h1>Usuários cadastrados</h1>
+    <h1><c:choose><c:when test="${companyUser}">Funcionários cadastrados</c:when><c:otherwise>Usuários cadastrados</c:otherwise></c:choose></h1>
 
 
-    <a class="btn" href="${pageContext.request.contextPath}/usuario?action=new">+ Novo usuário</a>
+    <a class="btn" href="${pageContext.request.contextPath}/usuario?action=new"><c:choose><c:when test="${companyUser}">+ Novo funcionário</c:when><c:otherwise>+ Novo usuário</c:otherwise></c:choose></a>
 
     <form class="form-inline" method="get" action="${pageContext.request.contextPath}/usuario">
         <input type="hidden" name="action" value="list">
@@ -55,7 +55,7 @@
         <div class="mensagem erro"><c:out value="${error}"/></div>
     </c:if>
     <c:if test="${empty users}">
-        <p class="vazio sem-resultado">Nenhum usuário encontrado.</p>
+        <p class="vazio sem-resultado"><c:choose><c:when test="${companyUser}">Nenhum funcionário encontrado.</c:when><c:otherwise>Nenhum usuário encontrado.</c:otherwise></c:choose></p>
     </c:if>
 
     <c:if test="${not empty users}">

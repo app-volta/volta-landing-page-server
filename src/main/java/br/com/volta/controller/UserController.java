@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 //usuarios: admin global gerencia todos; admin de empresa gerencia os da propria empresa
 @WebServlet("/usuario")
@@ -31,6 +32,7 @@ public class UserController extends BaseController {
     private static final String LIST_PATH = "/usuario?action=list";
     private static final String LIST_JSP = "/WEB-INF/views/usuario/lista.jsp";
     private static final String FORM_JSP = "/WEB-INF/views/usuario/formulario.jsp";
+    private static final Set<String> ALLOWED_POSITIONS = Set.of("ADMIN", "MANAGER", "EMPLOYEE");
 
     private final UserDAO userDAO = new UserDAO();
     private final CompanyDAO companyDAO = new CompanyDAO();
@@ -385,6 +387,9 @@ public class UserController extends BaseController {
         }
         if (!Validator.fits(user.getPosition(), Validator.POSITION_MAX)) {
             return "Cargo excede o limite de caracteres.";
+        }
+        if (!ALLOWED_POSITIONS.contains(user.getPosition())) {
+            return "Selecione um cargo válido: ADMIN, MANAGER ou EMPLOYEE.";
         }
         if (!Validator.isValidEmail(user.getEmail())) {
             return "Email invalido. Use o formato nome@dominio.com.";
