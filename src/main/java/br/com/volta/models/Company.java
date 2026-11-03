@@ -11,6 +11,8 @@ public class Company implements java.io.Serializable {
     private String cnpj;
     private String cep;
     private String address;
+    private Double latitude;
+    private Double longitude;
 
     //construtor
     public Company() {
@@ -71,6 +73,22 @@ public class Company implements java.io.Serializable {
     //define address
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 
     //devolve a representacao textual do objeto
