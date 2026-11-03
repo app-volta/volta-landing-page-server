@@ -36,7 +36,7 @@ public final class ZipCodeService {
     }
 
     public record AddressResult(String zipCode, String address, String district,
-                                String city, String state) {
+                                String city, String state, Double latitude, Double longitude) {
     }
 
     //consulta o endereco usando a AwesomeAPI, que recebe os oito digitos do CEP
@@ -72,6 +72,8 @@ public final class ZipCodeService {
             String district = body.optString("district", "").trim();
             String city = body.optString("city", "").trim();
             String state = body.optString("state", "").trim();
+            Double latitude = parseCoordinate(body.optString("lat", ""));
+            Double longitude = parseCoordinate(body.optString("lng", ""));
             String fullAddress = java.util.stream.Stream.of(address, district, city, state)
                     .filter(part -> !part.isBlank())
                     .collect(java.util.stream.Collectors.joining(", "));
@@ -79,7 +81,7 @@ public final class ZipCodeService {
                 return null;
             }
 
-            return new AddressResult(digits, fullAddress, district, city, state);
+            return new AddressResult(digits, fullAddress, district, city, state, latitude, longitude);
 
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
@@ -156,6 +158,17 @@ public final class ZipCodeService {
         }
         try {
             return Double.parseDouble(value.toString());
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
+    private static Double parseCoordinate(String value) {
+        if (value == null || value.isBlank()) {
+            return null;
+        }
+        try {
+            return Double.parseDouble(value.trim());
         } catch (NumberFormatException e) {
             return null;
         }

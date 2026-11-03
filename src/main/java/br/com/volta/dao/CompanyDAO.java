@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,13 +26,16 @@ public class CompanyDAO {
 
     //insere o registro usando uma conexao ja aberta (permite transacao)
     public Company insert(Company company, Connection connection) throws SQLException {
-        String sql = "INSERT INTO company (name, cnpj, cep, address) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO company (name, cnpj, cep, address, latitude, longitude) " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, company.getName());
             stmt.setString(2, company.getCnpj());
             stmt.setString(3, company.getCep());
             stmt.setString(4, company.getAddress());
+            setNullableDouble(stmt, 5, company.getLatitude());
+            setNullableDouble(stmt, 6, company.getLongitude());
             stmt.executeUpdate();
 
             try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
@@ -197,7 +201,8 @@ public class CompanyDAO {
 
     //atualiza o registro
     public boolean update(Company company) {
-        String sql = "UPDATE company SET name = ?, cnpj = ?, cep = ?, address = ? WHERE id = ?";
+        String sql = "UPDATE company SET name = ?, cnpj = ?, cep = ?, address = ?, " +
+                "latitude = ?, longitude = ? WHERE id = ?";
 
         try (Connection connection = DatabaseConnection.connect();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -206,11 +211,32 @@ public class CompanyDAO {
             stmt.setString(2, company.getCnpj());
             stmt.setString(3, company.getCep());
             stmt.setString(4, company.getAddress());
-            stmt.setInt(5, company.getId());
+            setNullableDouble(stmt, 5, company.getLatitude());
+            setNullableDouble(stmt, 6, company.getLongitude());
+            stmt.setInt(7, company.getId());
             return stmt.executeUpdate() > 0;
 
         } catch (SQLException e) {
             throw new DaoException("Erro ao atualizar empresa", e);
+        }
+    }
+
+    //preenche coordenadas ausentes sem substituir dados que outro processo ja atualizou
+    public boolean updateCoordinatesIfMissing(Integer id, Double latitude, Double longitude) {
+        if (id == null || latitude == null || longitude == null) {
+            return false;
+        }
+        String sql = "UPDATE company SET latitude = ?, longitude = ? " +
+                "WHERE id = ? AND (latitude IS NULL OR longitude IS NULL)";
+
+        try (Connection connection = DatabaseConnection.connect();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setDouble(1, latitude);
+            stmt.setDouble(2, longitude);
+            stmt.setInt(3, id);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new DaoException("Erro ao preencher coordenadas da empresa", e);
         }
     }
 
@@ -227,6 +253,18 @@ public class CompanyDAO {
         company.setCnpj(result.getString("cnpj"));
         company.setCep(result.getString("cep"));
         company.setAddress(result.getString("address"));
+        double latitude = result.getDouble("latitude");
+        company.setLatitude(result.wasNull() ? null : latitude);
+        double longitude = result.getDouble("longitude");
+        company.setLongitude(result.wasNull() ? null : longitude);
         return company;
+    }
+
+    private void setNullableDouble(PreparedStatement statement, int index, Double value) throws SQLException {
+        if (value == null) {
+            statement.setNull(index, Types.DOUBLE);
+        } else {
+            statement.setDouble(index, value);
+        }
     }
 }

@@ -237,9 +237,17 @@ public class CompanyController extends BaseController {
 
         String existingCep = existing != null ? Validator.onlyDigits(existing.getCep()) : null;
         boolean cepChanged = existing == null || !company.getCep().equals(existingCep);
+        boolean missingCoordinates = existing == null
+                || existing.getLatitude() == null || existing.getLongitude() == null;
+        boolean lookupRequired = cepChanged || missingCoordinates || existing.getAddress() == null;
+
         if (!cepChanged && existing.getAddress() != null) {
             company.setAddress(existing.getAddress());
-        } else {
+            company.setLatitude(existing.getLatitude());
+            company.setLongitude(existing.getLongitude());
+        }
+
+        if (lookupRequired) {
             ZipCodeService.AddressResult addressResult = ZipCodeService.findAddress(company.getCep());
             if (addressResult == null) {
                 showForm(request, response, company,
@@ -251,7 +259,15 @@ public class CompanyController extends BaseController {
                         "O CEP informado não pertence à cidade de São Paulo.");
                 return;
             }
-            company.setAddress(addressResult.address());
+            if (cepChanged || company.getAddress() == null) {
+                company.setAddress(addressResult.address());
+            }
+            if (cepChanged || addressResult.latitude() != null) {
+                company.setLatitude(addressResult.latitude());
+            }
+            if (cepChanged || addressResult.longitude() != null) {
+                company.setLongitude(addressResult.longitude());
+            }
         }
         if (!Validator.fits(company.getAddress(), Validator.TEXT_MAX)) {
             showForm(request, response, company,

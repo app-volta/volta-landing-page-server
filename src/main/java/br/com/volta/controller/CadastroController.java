@@ -104,6 +104,8 @@ public class CadastroController extends BaseController {
             return;
         }
         company.setAddress(addressResult.address());
+        company.setLatitude(addressResult.latitude());
+        company.setLongitude(addressResult.longitude());
         if (!Validator.fits(company.getAddress(), Validator.TEXT_MAX)) {
             showForm(request, response, company, email,
                     "Endereço retornado pelo CEP excede o limite de caracteres.");
