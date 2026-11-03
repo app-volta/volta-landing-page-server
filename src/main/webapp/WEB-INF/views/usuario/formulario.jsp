@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usuário - Volta</title>
+    <title><c:choose><c:when test="${companyUser}">Funcionário</c:when><c:otherwise>Usuário</c:otherwise></c:choose> - VOLTA</title>
     <link rel="icon" href="${pageContext.request.contextPath}/assets/img/content/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/app.css">
@@ -21,6 +21,8 @@
 <main class="container formulario">
     <h1>
         <c:choose>
+            <c:when test="${companyUser and user != null and user.id != null}">Editar funcionário</c:when>
+            <c:when test="${companyUser}">Novo funcionário</c:when>
             <c:when test="${user != null and user.id != null}">Editar usuário</c:when>
             <c:otherwise>Novo usuário</c:otherwise>
         </c:choose>
@@ -48,7 +50,12 @@
         <input type="email" id="email" name="email" maxlength="150" value="<c:out value='${user.email}'/>" required>
 
         <label for="position">Cargo</label>
-        <input type="text" id="position" name="position" maxlength="100" value="<c:out value='${user.position}'/>">
+        <select id="position" name="position" required>
+            <option value="">Selecione...</option>
+            <option value="ADMIN" ${user.position eq 'ADMIN' ? 'selected' : ''}>ADMIN</option>
+            <option value="MANAGER" ${user.position eq 'MANAGER' ? 'selected' : ''}>MANAGER</option>
+            <option value="EMPLOYEE" ${user.position eq 'EMPLOYEE' ? 'selected' : ''}>EMPLOYEE</option>
+        </select>
 
         <c:choose>
             <c:when test="${systemAdmin}">

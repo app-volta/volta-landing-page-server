@@ -33,7 +33,7 @@ public class RegistrationService {
         admin.setName(adminName);
         admin.setEmail(email);
         admin.setPassword(PasswordUtil.hash(rawPassword));
-        admin.setPosition("Administrador da empresa");
+        admin.setPosition("ADMIN");
         admin.setRole(adminRole);
 
         try (Connection connection = DatabaseConnection.connect()) {
